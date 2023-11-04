@@ -1,6 +1,0 @@
-11 8 0
-11 8 0
-6 7 3
-6 7 3 5 cat 12
-January 8 dog
-March 8 -1
