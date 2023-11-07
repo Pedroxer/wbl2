@@ -124,18 +124,18 @@ func getBuilder(builderType string) Builder {
 }
 
 func main() {
-	normalBuilder := getBuilder("normal")
-	iglooBuilder := getBuilder("igloo")
+	nBuilder := getBuilder("normal")
+	igBuilder := getBuilder("igloo")
 
-	director := NewDirector(normalBuilder)
-	normalHouse := director.BuildHouse()
+	direct := NewDirector(nBuilder)
+	normalHouse := direct.BuildHouse()
 
 	fmt.Printf("Normal House Door Type: %s\n", normalHouse.GetDoorType())
 	fmt.Printf("Normal House Window Type: %s\n", normalHouse.GetWindowType())
 	fmt.Printf("Normal House Num Floor: %d\n", normalHouse.GetFloor())
 
-	director.SetBuilder(iglooBuilder)
-	iglooHouse := director.BuildHouse()
+	direct.SetBuilder(igBuilder)
+	iglooHouse := direct.BuildHouse()
 
 	fmt.Printf("\nIgloo House Door Type: %s\n", iglooHouse.GetDoorType())
 	fmt.Printf("Igloo House Window Type: %s\n", iglooHouse.GetWindowType())

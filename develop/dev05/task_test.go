@@ -70,7 +70,7 @@ func TestPrintWithAfterWtihLineNumber(t *testing.T) {
 		"--",
 	}
 	after = "3"
-	line_num = true
+	lineNum = true
 	reg, err := regexp.Compile("0123")
 	if err != nil {
 		t.Fatalf("printWithAfter: %v", err)

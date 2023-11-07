@@ -18,7 +18,7 @@ var count bool
 var ignore bool
 var invert bool
 var fixed bool
-var line_num bool
+var lineNum bool
 
 func init() {
 	testing.Init()
@@ -29,7 +29,7 @@ func init() {
 	flag.BoolVar(&ignore, "i", false, "ignore case")                                  //+
 	flag.BoolVar(&invert, "v", false, "instead of matching, exclude")                 //+
 	flag.BoolVar(&fixed, "F", false, "the exact match with string, not with pattern") //+
-	flag.BoolVar(&line_num, "n", false, "print line number")                          //+
+	flag.BoolVar(&lineNum, "n", false, "print line number")                           //+
 
 	flag.Parse()
 }
@@ -82,10 +82,10 @@ func buildRegExp(pattern string) (*regexp.Regexp, error) {
 
 }
 
-// execRegExp execute regexp for array of strings. And check line_num and invert flags
+// execRegExp execute regexp for array of strings. And check lineNum and invert flags
 func execRegExp(re regexp.Regexp, lines []string) []string {
 	var strs []string
-	if line_num {
+	if lineNum {
 		for i, val := range lines {
 			res := re.Match([]byte(val))
 			if invert {
@@ -144,23 +144,23 @@ func maxInt(a, b int) string {
 	return fmt.Sprint(b)
 }
 
-func printWhenAfter(re *regexp.Regexp, lines []string, core_pos int) []string {
+func printWhenAfter(re *regexp.Regexp, lines []string, corePos int) []string {
 	var strs []string
-	after_num, err := strconv.Atoi(after)
+	afterNum, err := strconv.Atoi(after)
 
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 	}
 
-	if line_num {
-		for j := core_pos + 1; j <= core_pos+after_num; j++ {
+	if lineNum {
+		for j := corePos + 1; j <= corePos+afterNum; j++ {
 			if re.Match([]byte(lines[j])) {
 				break
 			}
 			strs = append(strs, fmt.Sprintf("Line %d: %s", j+1, lines[j]))
 		}
 	} else {
-		for j := core_pos + 1; j <= core_pos+after_num; j++ {
+		for j := corePos + 1; j <= corePos+afterNum; j++ {
 			if re.Match([]byte(lines[j])) {
 				break
 			}
@@ -171,24 +171,24 @@ func printWhenAfter(re *regexp.Regexp, lines []string, core_pos int) []string {
 	return strs
 }
 
-func printWhenBefore(re *regexp.Regexp, lines []string, core_pos int) []string {
+func printWhenBefore(re *regexp.Regexp, lines []string, corePos int) []string {
 	var strs []string
 	strs = append(strs, "--")
-	before_num, err := strconv.Atoi(before)
+	beforeNum, err := strconv.Atoi(before)
 
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 	}
 
-	if line_num {
-		for j := core_pos - before_num; j < core_pos; j++ {
+	if lineNum {
+		for j := corePos - beforeNum; j < corePos; j++ {
 			if re.Match([]byte(lines[j])) {
 				break
 			}
 			strs = append(strs, fmt.Sprintf("Line %d: %s", j+1, lines[j]))
 		}
 	} else {
-		for j := core_pos - before_num; j < core_pos; j++ {
+		for j := corePos - beforeNum; j < corePos; j++ {
 			if re.Match([]byte(lines[j])) {
 				break
 			}
